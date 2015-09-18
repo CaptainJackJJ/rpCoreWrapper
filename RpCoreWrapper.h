@@ -10,7 +10,29 @@ namespace RpCoreWrapper
 	{
   public:
     static bool LoadLib(String^ strRuntimesPath,String^ strTempPath);
+    static void UnLoadLib();
     static bool InitPlayer(int wndHandle, int wndWidth, int wndHeight);
-    static bool Play(String^ url);
+    static bool UninitPlayer();
+    static bool Play(String^ url,double nStartTime);
+    static void Stop();
+    static void Pause();
+    static double GetTotalTime();
+    static double GetCurrentTime();
+    static void Seek(double time, bool bAccurate);
+    static void SetVolume(float volume);
+    static int  GetAudioCount();
+    static int  GetCurrentAudio();
+    static void SwitchAudio(int iStream);
+    static int  GetSubtitleCount();
+    static int  GetCurrentSubtitle();
+    static void SwitchSubtitle(int iStream);
+    static void ToFFRW(float iSpeed);
+    static int  GetChapterCount();
+    static int  GetCurrentChapter();
+    static String^ GetChapterName();
+    static int  SwitchChapter(int iChapter);
+    static bool IsCaching();
+    static int GetCachePercent();
+    static int AddSubtitle(String^ strSubPath);
 	};
 }
