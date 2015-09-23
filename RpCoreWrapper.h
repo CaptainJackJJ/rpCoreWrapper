@@ -34,5 +34,6 @@ namespace RpCoreWrapper
     static bool IsCaching();
     static int GetCachePercent();
     static int AddSubtitle(String^ strSubPath);
+    static void PlayWndResized(int width,int height);
 	};
 }

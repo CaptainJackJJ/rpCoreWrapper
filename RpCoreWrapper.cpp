@@ -286,5 +286,10 @@ namespace RpCoreWrapper
     return index;
   }
 
+  void RpCore::PlayWndResized(int width,int height)
+  {
+    g_pPlayTool->RenderWndResized(width,height);
+  }
+
 
 }
