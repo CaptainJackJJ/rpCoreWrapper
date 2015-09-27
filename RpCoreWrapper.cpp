@@ -198,7 +198,7 @@ namespace RpCoreWrapper
      return g_pCorePlayer->GetTotalTime();
   }
 
-  double RpCore::GetCurrentTime()
+  double RpCore::GetCurTime()
   {
     return g_pCorePlayer->GetTime();
   }
@@ -294,5 +294,9 @@ namespace RpCoreWrapper
     g_pPlayTool->RenderWndResized(width,height);
   }
 
+	bool RpCore::IsPlaying()
+	{
+		return g_pCorePlayer->IsPlaying();
+	}
 
 }

@@ -17,7 +17,7 @@ namespace RpCoreWrapper
     static void Stop();
     static void Pause();
     static double GetTotalTime();
-    static double GetCurrentTime();
+    static double GetCurTime();
     static void Seek(double time, bool bAccurate);
     static void SetVolume(float volume);
     static int  GetAudioCount();
@@ -35,5 +35,6 @@ namespace RpCoreWrapper
     static int GetCachePercent();
     static int AddSubtitle(String^ strSubPath);
     static void PlayWndResized(int width,int height);
+		static bool IsPlaying();
 	};
 }
