@@ -1,12 +1,14 @@
 // This is the main DLL file.
 
 #include "stdafx.h"
-
+#include <windows.h>
 #include "RpCoreWrapper.h"
 #include "PlcoreDecls.h"
 #include <vcclr.h>
 #include <stdlib.h>
 #include <assert.h>
+
+using namespace System::Runtime::InteropServices;
 
 
 namespace RpCoreWrapper 
@@ -81,14 +83,15 @@ namespace RpCoreWrapper
 
   char* newChar(String^ str)
   {
-    pin_ptr<const wchar_t> cpwc = PtrToStringChars(str);
+	  wchar_t* wstr = (wchar_t*)Marshal::StringToHGlobalUni(str).ToPointer();
 
-    size_t convertedChars = 0;
-    size_t  sizeInBytes = ((str->Length + 1) * 2);
-    errno_t err = 0;
-    char *ch = new char[sizeInBytes];
-    err = wcstombs_s(&convertedChars, ch, sizeInBytes, cpwc, sizeInBytes);
-    return ch;
+	  int chars_num = WideCharToMultiByte(CP_UTF8, 0, wstr, -1, NULL, 0,NULL,NULL);
+	  char* chstr = new char[chars_num];
+	  WideCharToMultiByte(CP_UTF8, 0, wstr, -1, chstr, chars_num,NULL,NULL);
+
+		Marshal::FreeHGlobal((IntPtr)wstr);
+
+    return chstr;
   }
 
 #pragma endregion utils
@@ -117,7 +120,7 @@ namespace RpCoreWrapper
 
     temp = newChar(strTempPath);
     g_pPlcoreConfig->m_strLogPath = temp;
-    delete[] temp;
+		delete[] temp;
 
     bool bInit = g_pPlcore->Initialize(g_pPlcoreConfig);
     assert(bInit);
@@ -173,7 +176,7 @@ namespace RpCoreWrapper
 
     char* temp = newChar(url);
     item.m_path = temp;
-    delete[] temp;
+		delete[] temp;
 
     options.m_nStartTime = nStartTime;
 
@@ -281,9 +284,9 @@ namespace RpCoreWrapper
   int RpCore::AddSubtitle(String^ strSubPath)
   {
     char* temp = newChar(strSubPath);
-    int index = g_pCorePlayer->AddSubtitle(temp);
-    delete[] temp;
-    return index;
+		int index = g_pCorePlayer->AddSubtitle(temp);
+		delete[] temp;
+		return index;
   }
 
   void RpCore::PlayWndResized(int width,int height)

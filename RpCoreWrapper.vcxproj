@@ -52,12 +52,12 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PrecompiledHeader>Use</PrecompiledHeader>
-      <AdditionalIncludeDirectories>F:\develop\trunk\goland\projects\plcore2\xbmc\playercore</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\develop\trunk\me\project\plcore2\xbmc\playercore;F:\develop\trunk\goland\projects\plcore2\xbmc\playercore</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>Plcored.lib</AdditionalDependencies>
-      <AdditionalLibraryDirectories>F:\develop\trunk\goland\projects\plcore2\project\VS2010Express\Plcore\Debug_for_vidon_play_dll</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>D:\develop\trunk\me\project\plcore2\project\VS2010Express\Plcore\Debug_for_vidon_play_dll;F:\develop\trunk\goland\projects\plcore2\project\VS2010Express\Plcore\Debug_for_vidon_play_dll</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
