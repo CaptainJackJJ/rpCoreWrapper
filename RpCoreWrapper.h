@@ -53,5 +53,6 @@ namespace RpCoreWrapper
     static int AddSubtitle(String^ strSubPath);
     static void PlayWndResized(int width,int height);
 		static bool IsPlaying();
+		static bool IsPaused();
 	};
 }

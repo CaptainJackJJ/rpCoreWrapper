@@ -202,7 +202,7 @@ namespace RpCoreWrapper
 
   void RpCore::Pause()
   {
-    g_pCorePlayer->CloseFile();
+    g_pCorePlayer->Pause();
   }
 
   double RpCore::GetTotalTime()
@@ -311,4 +311,8 @@ namespace RpCoreWrapper
 		return g_pCorePlayer->IsPlaying();
 	}
 
+	bool RpCore::IsPaused()
+	{
+		return g_pCorePlayer->IsPaused();
+	}
 }
