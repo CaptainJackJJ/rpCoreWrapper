@@ -6,10 +6,27 @@ using namespace System;
 
 namespace RpCoreWrapper 
 {
+	public ref class IRpCallback
+	{
+	public:
+		virtual void OnEnded() {}
+		virtual void OnStopped()  {}
+		virtual void OnSeekStarted(){}
+		virtual void OnSeekEnded(){}
+		virtual void OnHwDecodeFailed() {}
+		virtual void OnDecodeModeNotify(bool Hw) {}
+	};
+
+	private ref class ManagedCaller
+	{
+	public:
+		static IRpCallback^ m_rpCallback;
+	};
+
 	public ref class RpCore
 	{
   public:
-    static bool LoadLib(String^ strRuntimesPath,String^ strTempPath);
+    static bool LoadLib(String^ strRuntimesPath,String^ strTempPath, IRpCallback^ callback);
     static void UnLoadLib();
     static bool InitPlayer(int wndHandle, int wndWidth, int wndHeight);
     static bool UninitPlayer();

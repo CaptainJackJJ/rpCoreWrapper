@@ -19,18 +19,29 @@ namespace RpCoreWrapper
     CPlayCallback() {};
     ~CPlayCallback() {};
 
-    void OnPlayBackEnded() {};
+    void OnPlayBackEnded() {ManagedCaller::m_rpCallback->OnEnded();};
     void OnPlayBackStarted(){};
     void OnPlayBackPaused() {};
     void OnPlayBackResumed() {};
-    void OnPlayBackStopped()  {};
+		void OnPlayBackStopped()  {ManagedCaller::m_rpCallback->OnStopped();};
     void OnQueueNextItem()  {};
-    void OnPlayBackSeek(int iTime, int seekOffset) {};
+    void OnPlayBackSeek(int iTime, int seekOffset){};
     void OnPlayBackSeekChapter(int iChapter) {};
     void OnPlayBackSpeedChanged(int iSpeed) {};
-    void OnPlayBackSeekState(PL_SeekState state){};
-    void OnPlayBackHwDecodeFailed() {};
-    void OnPlayBackDecodeModeNotify(bool Hw) {};
+    void OnPlayBackSeekState(PL_SeekState state)
+		{
+			switch (state)
+			{
+			case PL_SEEK_STATE_START:
+				ManagedCaller::m_rpCallback->OnSeekStarted();
+				break;
+			case PL_SEEK_STATE_DISPLAY_FIRST_PIC:
+				ManagedCaller::m_rpCallback->OnSeekEnded();
+				break;
+			}
+		};
+    void OnPlayBackHwDecodeFailed() {ManagedCaller::m_rpCallback->OnHwDecodeFailed();};
+    void OnPlayBackDecodeModeNotify(bool Hw) {ManagedCaller::m_rpCallback->OnDecodeModeNotify(Hw);};
     void OnOpenAC3() {};
   };
 
@@ -105,8 +116,9 @@ namespace RpCoreWrapper
   CPlayCallback* g_pPlayCallback = NULL; 
 
 
-  bool RpCore::LoadLib(String^ strRuntimesPath,String^ strTempPath)
+  bool RpCore::LoadLib(String^ strRuntimesPath,String^ strTempPath, IRpCallback^ callback)
   {
+		ManagedCaller::m_rpCallback = callback;
     g_pPlcore = Libplayercore_CreateIPlcore();
     if (!g_pPlcore) return false;
 
