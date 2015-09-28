@@ -59,18 +59,27 @@
       <AdditionalDependencies>Plcored.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>D:\develop\trunk\me\project\plcore2\project\VS2010Express\Plcore\Debug_for_vidon_play_dll;F:\develop\trunk\goland\projects\plcore2\project\VS2010Express\Plcore\Debug_for_vidon_play_dll</AdditionalLibraryDirectories>
     </Link>
+    <PostBuildEvent>
+      <Command>
+      </Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>WIN32;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PrecompiledHeader>Use</PrecompiledHeader>
+      <AdditionalIncludeDirectories>D:\develop\trunk\me\project\plcore2\xbmc\playercore;F:\develop\trunk\goland\projects\plcore2\xbmc\playercore</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>
-      </AdditionalDependencies>
+      <AdditionalDependencies>Plcore.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>D:\develop\trunk\me\project\plcore2\project\VS2010Express\Plcore\Debug_for_vidon_play_dll;F:\develop\trunk\goland\projects\plcore2\project\VS2010Express\Plcore\Release_for_vidon_play_dll</AdditionalLibraryDirectories>
     </Link>
+    <PostBuildEvent>
+      <Command>
+      </Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
     <Reference Include="System" />
