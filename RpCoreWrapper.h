@@ -12,6 +12,7 @@ namespace RpCoreWrapper
 		virtual void OnEnded() {}
 		virtual void OnStopped()  {}
 		virtual void OnSeekStarted(){}
+		virtual void OnSeekFailed(){}
 		virtual void OnSeekEnded(){}
 		virtual void OnHwDecodeFailed() {}
 		virtual void OnDecodeModeNotify(bool Hw) {}

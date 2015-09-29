@@ -35,6 +35,10 @@ namespace RpCoreWrapper
 			case PL_SEEK_STATE_START:
 				ManagedCaller::m_rpCallback->OnSeekStarted();
 				break;
+			case PL_SEEK_STATE_CANNOT_SEEK:
+			case PL_SEEK_STATE_FAILED:
+				ManagedCaller::m_rpCallback->OnSeekFailed();
+				break;
 			case PL_SEEK_STATE_DISPLAY_FIRST_PIC:
 				ManagedCaller::m_rpCallback->OnSeekEnded();
 				break;
