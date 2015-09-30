@@ -55,5 +55,6 @@ namespace RpCoreWrapper
     static void PlayWndResized(int width,int height);
 		static bool IsPlaying();
 		static bool IsPaused();
+		static void SetMute(bool bMute);
 	};
 }

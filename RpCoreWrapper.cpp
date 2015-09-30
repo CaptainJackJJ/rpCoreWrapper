@@ -319,4 +319,9 @@ namespace RpCoreWrapper
 	{
 		return g_pCorePlayer->IsPaused();
 	}
+
+	void RpCore::SetMute(bool bMute)
+	{
+		g_pPlayTool->SetMute(bMute);
+	}
 }
