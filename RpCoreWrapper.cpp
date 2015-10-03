@@ -324,4 +324,59 @@ namespace RpCoreWrapper
 	{
 		g_pPlayTool->SetMute(bMute);
 	}
+
+	VideoStreamInfo^ RpCore::GetVideoStreamInfo(int nStream)
+	{
+		VideoStreamInfo^ info = gcnew VideoStreamInfo();
+		PL_PlayerVideoStreamInfo* plInfo = g_pCorePlayer->GetVideoStreamInfo();
+		info->bitrate = plInfo->bitrate;
+		info->videoAspectRatio = plInfo->videoAspectRatio;
+		info->height = plInfo->height;
+		info->width = plInfo->width;
+		info->language = gcnew String(plInfo->language);
+		info->name = gcnew String(plInfo->name);
+		info->videoCodecName = gcnew String(plInfo->videoCodecName);
+		info->stereoMode = gcnew String(plInfo->stereoMode);
+		g_pCorePlayer->ReleaseVideoStreamInfo(plInfo);
+		return info;
+	}
+
+	AudioStreamInfo^ RpCore::GetAudioStreamInfo(int nStream)
+	{
+		AudioStreamInfo^ info = gcnew AudioStreamInfo();
+		PL_PlayerAudioStreamInfo* plInfo = g_pCorePlayer->GetAudioStreamInfo(nStream);
+		info->bitrate = plInfo->bitrate;
+		info->channels = plInfo->channels;
+		info->samplerate = plInfo->samplerate;
+		info->bitspersample = plInfo->bitspersample;
+		info->nPhysicalId = plInfo->nPhysicalId;
+		info->language = gcnew String(plInfo->language);
+		info->name = gcnew String(plInfo->name);
+		info->audioCodecName = gcnew String(plInfo->audioCodecName);
+		g_pCorePlayer->ReleaseAudioStreamInfo(plInfo);
+		return info;
+	}
+
+	SubtitleStreamInfo^ RpCore::GetSubtitleStreamInfo(int nStream)
+	{
+		SubtitleStreamInfo^ info = gcnew SubtitleStreamInfo();
+		PL_PlayerSubtitleStreamInfo* plInfo = g_pCorePlayer->GetSubtitleStreamInfo(nStream);
+		info->language = gcnew String(plInfo->language);
+		info->name = gcnew String(plInfo->name);
+		info->bExternalSub = plInfo->bExternalSub;
+		info->nPhysicalId = plInfo->nPhysicalId;
+		info->filename = gcnew String(plInfo->filename);
+		g_pCorePlayer->ReleaseSubtitleStreamInfo(plInfo);
+		return info;
+	}
+
+	void RpCore::SetSubtitleVisible(bool bVisible)
+	{
+		g_pPlayTool->SetSubtitleOn(bVisible);
+	}
+
+	bool RpCore::GetSubtitleVisible()
+	{
+		return g_pPlayTool->GetSubtitleOn();
+	}
 }

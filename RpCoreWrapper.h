@@ -6,6 +6,43 @@ using namespace System;
 
 namespace RpCoreWrapper 
 {
+	public ref class VideoStreamInfo
+	{
+	public:
+		int bitrate;
+		float videoAspectRatio;
+		int height;
+		int width;
+
+		String^ language;
+		String^ name;
+		String^ videoCodecName;
+		String^ stereoMode;
+	};
+
+	public ref class AudioStreamInfo
+	{
+	public:
+		int bitrate;
+		int channels;
+		int samplerate;
+		int bitspersample;
+		int nPhysicalId;
+		String^ language;
+		String^ name;
+		String^ audioCodecName;
+	};
+
+	public ref class SubtitleStreamInfo
+	{
+	public:
+		String^ language;
+		String^ name;
+		bool bExternalSub;
+		int nPhysicalId;
+		String^ filename; 
+	};
+
 	public ref class IRpCallback
 	{
 	public:
@@ -38,8 +75,8 @@ namespace RpCoreWrapper
     static double GetCurTime();
     static void Seek(double time, bool bAccurate);
     static void SetVolume(float volume);
-    static int  GetAudioCount();
-    static int  GetCurrentAudio();
+    static int  GetAudioCount();		
+    static int  GetCurrentAudio();		
     static void SwitchAudio(int iStream);
     static int  GetSubtitleCount();
     static int  GetCurrentSubtitle();
@@ -56,5 +93,10 @@ namespace RpCoreWrapper
 		static bool IsPlaying();
 		static bool IsPaused();
 		static void SetMute(bool bMute);
+		static VideoStreamInfo^ GetVideoStreamInfo(int nStream);
+		static AudioStreamInfo^ GetAudioStreamInfo(int nStream);
+		static SubtitleStreamInfo^ GetSubtitleStreamInfo(int nStream);
+		static void SetSubtitleVisible(bool bVisible);
+		static bool GetSubtitleVisible();
 	};
 }
