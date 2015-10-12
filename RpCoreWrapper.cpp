@@ -392,7 +392,7 @@ namespace RpCoreWrapper
     IMediatool* pMediatool = g_pPlcore->CreateMediatool(pConfig);
     bool b = pMediatool->Parser();
     IMediaPlaylist* pPlaylist = pMediatool->GetMediaPlaylistByPlaylist();
-    info->nDuration = (double)pPlaylist->GetDurationMs();
+    info->nDuration = (double)(pPlaylist->GetDurationMs() / 1000);
 
     g_pPlcore->ReleaseMediatool(pMediatool);
     delete pConfig;
