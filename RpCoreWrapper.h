@@ -43,6 +43,12 @@ namespace RpCoreWrapper
 		String^ filename; 
 	};
 
+  public ref class MediaInfo
+  {
+  public:    
+    double nDuration;
+  };
+
 	public ref class IRpCallback
 	{
 	public:
@@ -98,5 +104,6 @@ namespace RpCoreWrapper
 		static SubtitleStreamInfo^ GetSubtitleStreamInfo(int nStream);
 		static void SetSubtitleVisible(bool bVisible);
 		static bool GetSubtitleVisible();
+    static MediaInfo^ GetMediaInfo(String^ strFileUrl);
 	};
 }

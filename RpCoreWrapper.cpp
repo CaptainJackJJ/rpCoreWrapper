@@ -379,4 +379,24 @@ namespace RpCoreWrapper
 	{
 		return g_pPlayTool->GetSubtitleOn();
 	}
+
+  MediaInfo^ RpCore::GetMediaInfo(String^ strFileUrl)
+  {
+    MediaInfo^ info = gcnew MediaInfo();
+
+    CMediatoolConfig* pConfig = new CMediatoolConfig();
+    char* temp = newChar(strFileUrl);
+    pConfig->m_strSourcePath = temp;
+    delete[] temp;
+
+    IMediatool* pMediatool = g_pPlcore->CreateMediatool(pConfig);
+    bool b = pMediatool->Parser();
+    IMediaPlaylist* pPlaylist = pMediatool->GetMediaPlaylistByPlaylist();
+    info->nDuration = (double)pPlaylist->GetDurationMs();
+
+    g_pPlcore->ReleaseMediatool(pMediatool);
+    delete pConfig;
+
+    return info;
+  }
 }

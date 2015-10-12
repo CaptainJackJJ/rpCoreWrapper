@@ -3,17 +3,20 @@
 #include <string>
 #include "IPlcore.h"
 #include "IPlcore_playtool.h"
+#include "IPlcore_mediatool.h"
 
 
 class CPlcoreConfig : public IPlcoreConfig
 {
 public:
-  CPlcoreConfig(){};
-  virtual ~CPlcoreConfig()
+  CPlcoreConfig()
   {
     m_nAccountType = ACCOUNT_TYPE_CHINA;
     m_strSpecifyName = m_strClientAppName = m_strClientPackageName = m_strClientVersion 
       = m_strUserName = m_strUserPassword = m_strUserEmail = "Unknow";
+  };
+  virtual ~CPlcoreConfig()
+  {
   };
 
   virtual const char* GetSpecifyName(){m_strSpecifyName = "RpCore";return m_strSpecifyName.c_str();};
@@ -107,4 +110,31 @@ class CPlaytoolCallback : public IPlcorePlaytoolCallback
 public:
   CPlaytoolCallback() {};
   virtual ~CPlaytoolCallback() {};
+};
+
+class CMediatoolConfig: public IMediatoolConfig
+{
+public:
+  CMediatoolConfig() {}
+  virtual ~CMediatoolConfig() {}
+
+  const char* GetSourcePath() {return m_strSourcePath.c_str();}
+
+  int GetSourceType() {return 0;}
+
+  bool IsCancel() {return false;}
+
+  const char* GetThumbnailPath(int playlist = -1) {return "";}
+
+  const char* GetMovieImagePath() {return "";}
+
+  const char* GetMultiThumbnailPath(int nSeekTo, int& nIntervalTime, int playlist = -1) {return "";}
+
+  int GetThumbnailPercentTime() {return 20;}
+
+  void GetThumbnailSize(int& iWidth, int& iHeight) {iWidth = 150;iHeight = 100;}
+
+  int GetMinTimeLengthOfPlaylist() {return 10 * 60 * 1000;}
+
+  std::string m_strSourcePath;
 };
