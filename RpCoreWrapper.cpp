@@ -399,4 +399,11 @@ namespace RpCoreWrapper
 
     return info;
   }
+
+	void RpCore::CatchSnapshot(String^ strSaveUrl)
+	{
+		char* temp = newChar(strSaveUrl);
+		g_pPlayTool->CaptureRenderImage(temp,0);
+		delete[] temp;
+	}
 }
