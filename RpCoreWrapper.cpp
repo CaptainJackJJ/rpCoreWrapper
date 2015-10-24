@@ -325,7 +325,7 @@ namespace RpCoreWrapper
 		g_pPlayTool->SetMute(bMute);
 	}
 
-	VideoStreamInfo^ RpCore::GetVideoStreamInfo(int nStream)
+	VideoStreamInfo^ RpCore::GetVideoStreamInfo()
 	{
 		VideoStreamInfo^ info = gcnew VideoStreamInfo();
 		PL_PlayerVideoStreamInfo* plInfo = g_pCorePlayer->GetVideoStreamInfo();

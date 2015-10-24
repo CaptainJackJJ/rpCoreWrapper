@@ -99,7 +99,7 @@ namespace RpCoreWrapper
 		static bool IsPlaying();
 		static bool IsPaused();
 		static void SetMute(bool bMute);
-		static VideoStreamInfo^ GetVideoStreamInfo(int nStream);
+		static VideoStreamInfo^ GetVideoStreamInfo();
 		static AudioStreamInfo^ GetAudioStreamInfo(int nStream);
 		static SubtitleStreamInfo^ GetSubtitleStreamInfo(int nStream);
 		static void SetSubtitleVisible(bool bVisible);
