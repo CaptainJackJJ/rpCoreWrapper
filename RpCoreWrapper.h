@@ -74,7 +74,7 @@ namespace RpCoreWrapper
     static void UnLoadLib();
     static bool InitPlayer(int wndHandle, int wndWidth, int wndHeight);
     static bool UninitPlayer();
-    static bool Play(String^ url,double nStartTime);
+    static bool Play(String^ url,double nStartTime,int nPreSelectedAudioIdx,int nPreSelectedSubtitleIdx);
     static void Stop();
     static void Pause();
     static double GetTotalTime();

@@ -87,11 +87,19 @@ namespace RpCoreWrapper
 
     bool IsVideoOnly() { return m_bVideoOnly; };
 
+		//get previously selected index
+		int GetPreSelectedAudioIdx(){ return m_nPreSelectedAudioIdx; };
+
+		//get previously selected index
+		int GetPreSelectedSubtitleIdx(){ return m_nPreSelectedSubtitleIdx; };
+
   public:
     double m_nStartTime;
     double m_nStartPercent;
     std::string m_strState;
     bool m_bVideoOnly;
+		int m_nPreSelectedAudioIdx;
+		int m_nPreSelectedSubtitleIdx;
   };
 
 #pragma region utils
@@ -185,7 +193,7 @@ namespace RpCoreWrapper
     return b;
   }
 
-  bool RpCore::Play(String^ url,double nStartTime)
+  bool RpCore::Play(String^ url,double nStartTime, int nPreSelectedAudioIdx,int nPreSelectedSubtitleIdx )
   {
     CFileItem item;
     CPlayOptions options;
@@ -195,6 +203,8 @@ namespace RpCoreWrapper
 		delete[] temp;
 
     options.m_nStartTime = nStartTime;
+		options.m_nPreSelectedAudioIdx = nPreSelectedAudioIdx;
+		options.m_nPreSelectedSubtitleIdx = nPreSelectedSubtitleIdx;
 
     return g_pCorePlayer->OpenFile(&item, &options);
   }
