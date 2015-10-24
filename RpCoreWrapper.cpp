@@ -406,4 +406,33 @@ namespace RpCoreWrapper
 		g_pPlayTool->CaptureRenderImage(temp,0);
 		delete[] temp;
 	}
+
+	void  RpCore::SetSubtitleColor(int color)
+	{
+		g_pPlayTool->SetSubColor(color);
+	}
+	void  RpCore::SetSubtitleBorderColor(int color)
+	{
+		g_pPlayTool->SetSubtitleBorderColor(color);
+	}
+	void  RpCore::SetSubtitleSize(int size)
+	{
+		g_pPlayTool->SetSubtitleSize(size);
+	}
+	void  RpCore::SetSubtitlePos(int yPos)
+	{
+		g_pPlayTool->SetSubtitlePos(yPos);
+	}
+	void  RpCore::SetSubtitleBold(bool b)
+	{
+		g_pPlayTool->SetSubtitleBold(b);
+	}
+	void  RpCore::SetSubtitleItalic(bool b)
+	{
+		g_pPlayTool->SetSubtitleItalic(b);
+	}
+	void  RpCore::SetOverAssOrig(bool b)
+	{
+		g_pPlayTool->SetWhetherOverAssOrigSettings(b);
+	}
 }

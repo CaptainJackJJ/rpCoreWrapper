@@ -106,5 +106,12 @@ namespace RpCoreWrapper
 		static bool GetSubtitleVisible();
     static MediaInfo^ GetMediaInfo(String^ strFileUrl);
 		static void CatchSnapshot(String^ strSaveUrl);
+		static void SetSubtitleColor(int color);
+		static void SetSubtitleBorderColor(int color);
+		static void SetSubtitleSize(int size);
+		static void SetSubtitlePos(int yPos);
+		static void SetSubtitleBold(bool b);
+		static void SetSubtitleItalic(bool b);
+		static void SetOverAssOrig(bool b);
 	};
 }
