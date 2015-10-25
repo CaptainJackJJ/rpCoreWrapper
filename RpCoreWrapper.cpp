@@ -400,9 +400,12 @@ namespace RpCoreWrapper
     delete[] temp;
 
     IMediatool* pMediatool = g_pPlcore->CreateMediatool(pConfig);
-    bool b = pMediatool->Parser();
-    IMediaPlaylist* pPlaylist = pMediatool->GetMediaPlaylistByPlaylist();
-    info->nDuration = (double)(pPlaylist->GetDurationMs() / 1000);
+    if(pMediatool->Parser())
+		{
+			IMediaPlaylist* pPlaylist = pMediatool->GetMediaPlaylistByPlaylist();
+			if(pPlaylist)
+				info->nDuration = (double)(pPlaylist->GetDurationMs() / 1000);
+		}
 
     g_pPlcore->ReleaseMediatool(pMediatool);
     delete pConfig;
