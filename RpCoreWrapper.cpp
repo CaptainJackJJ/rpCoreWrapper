@@ -434,7 +434,8 @@ namespace RpCoreWrapper
 	}
 	void  RpCore::SetSubtitlePos(int yPos)
 	{
-		g_pPlayTool->SetSubtitlePos(yPos);
+		float fYpos = yPos * 0.01;
+		g_pPlayTool->SetSubtitlePos(fYpos);
 	}
 	void  RpCore::SetSubtitleBold(bool b)
 	{
