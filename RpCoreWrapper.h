@@ -70,6 +70,14 @@ namespace RpCoreWrapper
 	public ref class RpCore
 	{
   public:
+    enum class ELogType : char
+    {
+      debug,
+      notice,
+      error
+    };
+
+  public:
     static bool LoadLib(String^ strRuntimesPath,String^ strTempPath, IRpCallback^ callback);
     static void UnLoadLib();
     static bool InitPlayer(int wndHandle, int wndWidth, int wndHeight);
@@ -113,5 +121,6 @@ namespace RpCoreWrapper
 		static void SetSubtitleBold(bool b);
 		static void SetSubtitleItalic(bool b);
 		static void SetOverAssOrig(bool b);
+    static void WriteLog(ELogType type,String^ strLog);
 	};
 }

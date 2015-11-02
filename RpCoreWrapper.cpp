@@ -449,4 +449,24 @@ namespace RpCoreWrapper
 	{
 		g_pPlayTool->SetWhetherOverAssOrigSettings(b);
 	}
+
+  void RpCore::WriteLog(ELogType type,String^ strLog)
+  {
+    char* temp = newChar(strLog);
+    int nLogLevel = 0;
+    switch (type)
+    {
+    case ELogType::debug:
+      nLogLevel = 0;
+    	break;
+    case ELogType::notice:
+      nLogLevel = 2;
+      break;
+    case ELogType::error:
+      nLogLevel = 4;
+      break;
+    }
+    g_pPlcore->OutputToLogFile(nLogLevel,temp);
+    delete[] temp;
+  }
 }
