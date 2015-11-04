@@ -154,12 +154,16 @@ namespace RpCoreWrapper
 
   void RpCore::UnLoadLib()
   {
+		if (!g_pPlcore)
+			return;
     Libplayercore_ReleaseIPlcore(g_pPlcore);g_pPlcore = NULL;
     delete g_pPlcoreConfig;g_pPlcoreConfig = NULL; 
   }
 
   bool RpCore::InitPlayer(int wndHandle, int wndWidth, int wndHeight)
   {
+		if (!g_pPlcore)
+			return false;
     g_pPlaytoolConfig = new CPlayToolConfig();
     g_pPlaytoolConfig->m_hander = (void*)wndHandle;
     g_pPlaytoolConfig->m_nWidth =wndWidth;
@@ -184,6 +188,8 @@ namespace RpCoreWrapper
 
   bool RpCore::UninitPlayer()
   {
+		if (!g_pPlayTool)
+			return true;
     g_pPlayTool->ReleasePlayer(g_pCorePlayer);g_pPlcoreConfig = NULL;
     delete g_pPlayCallback; g_pPlayCallback = NULL;
     bool b = g_pPlayTool->UnInit();
@@ -195,6 +201,9 @@ namespace RpCoreWrapper
 
   bool RpCore::Play(String^ url,double nStartTime, int nPreSelectedAudioIdx,int nPreSelectedSubtitleIdx )
   {
+		if (!g_pCorePlayer)
+			return false;
+
     CFileItem item;
     CPlayOptions options;
 
@@ -211,81 +220,113 @@ namespace RpCoreWrapper
 
   void RpCore::Stop()
   {
+		if (!g_pCorePlayer)
+			return;
     g_pCorePlayer->CloseFile();
   }
 
   void RpCore::Pause()
   {
+		if (!g_pCorePlayer)
+			return;
     g_pCorePlayer->Pause();
   }
 
   double RpCore::GetTotalTime()
   {
+		if (!g_pCorePlayer)
+			return 0;
      return g_pCorePlayer->GetTotalTime();
   }
 
   double RpCore::GetCurTime()
   {
+		if (!g_pCorePlayer)
+			return 0;
     return g_pCorePlayer->GetTime();
   }
 
   void RpCore::Seek(double time, bool bAccurate)
   {
+		if (!g_pCorePlayer)
+			return;
     g_pCorePlayer->SeekTime(time,bAccurate);
   }
 
   void RpCore::SetVolume(float volume)
   {
+		if (!g_pPlayTool)
+			return;
     g_pPlayTool->SetVolume(volume);
   }
 
   int RpCore::GetAudioCount()
   {
+		if (!g_pCorePlayer)
+			return 0;
     return g_pCorePlayer->GetAudioStreamCount();
   }
   
   int RpCore::GetCurrentAudio()
   {
+		if (!g_pCorePlayer)
+			return -1;
     return g_pCorePlayer->GetAudioStream();
   }
 
   void RpCore::SwitchAudio(int iStream)
   {
+		if (!g_pCorePlayer)
+			return;
     g_pCorePlayer->SetAudioStream(iStream);
   }
 
   int RpCore::GetSubtitleCount()
   {
+		if (!g_pCorePlayer)
+			return 0;
     return g_pCorePlayer->GetSubtitleCount();
   }
 
   int RpCore::GetCurrentSubtitle()
   {
+		if (!g_pCorePlayer)
+			return -1;
     return g_pCorePlayer->GetSubtitle();
   }
 
   void RpCore::SwitchSubtitle(int iStream)
   {
+		if (!g_pCorePlayer)
+			return ;
     g_pCorePlayer->SetSubtitle(iStream);
   }
 
   void RpCore::ToFFRW(float iSpeed)
   {
+		if (!g_pCorePlayer)
+			return ;
     g_pCorePlayer->ToFFRW(iSpeed);
   }
 
   int RpCore::GetChapterCount()
   {
+		if (!g_pCorePlayer)
+			return 0;
     return g_pCorePlayer->GetChapterCount();
   }
 
   int RpCore::GetCurrentChapter()
   {
+		if (!g_pCorePlayer)
+			return -1;
     return g_pCorePlayer->GetChapter();
   }
 
   String^ RpCore::GetChapterName()
   {    
+		if (!g_pCorePlayer)
+			return "";
     char* strName = g_pCorePlayer->GetChapterName();
     String^ clistr = gcnew String(strName);
     g_pCorePlayer->ReleaseChapterName(strName);
@@ -294,21 +335,29 @@ namespace RpCoreWrapper
 
   int RpCore::SwitchChapter(int iChapter)
   {
+		if (!g_pCorePlayer)
+			return -1;
     return g_pCorePlayer->SeekChapter(iChapter);
   }
 
   bool RpCore::IsCaching()
   {
+		if (!g_pCorePlayer)
+			return false;
     return g_pCorePlayer->IsCaching();
   }
 
-  int RpCore::GetCachePercent()
-  {
-    return g_pCorePlayer->GetCacheLevel();
-  }
+	int RpCore::GetCachePercent()
+	{
+		if (!g_pCorePlayer)
+			return 0;
+		return g_pCorePlayer->GetCacheLevel();
+	}
 
   int RpCore::AddSubtitle(String^ strSubPath)
   {
+		if (!g_pCorePlayer)
+			return -1;
     char* temp = newChar(strSubPath);
 		int index = g_pCorePlayer->AddSubtitle(temp);
 		delete[] temp;
@@ -317,27 +366,37 @@ namespace RpCoreWrapper
 
   void RpCore::PlayWndResized(int width,int height)
   {
+		if (!g_pPlayTool)
+			return;
     g_pPlayTool->RenderWndResized(width,height);
   }
 
 	bool RpCore::IsPlaying()
 	{
+		if (!g_pPlayTool)
+			return false;
 		return g_pCorePlayer->IsPlaying();
 	}
 
 	bool RpCore::IsPaused()
 	{
+		if (!g_pPlayTool)
+			return false;
 		return g_pCorePlayer->IsPaused();
 	}
 
 	void RpCore::SetMute(bool bMute)
 	{
+		if (!g_pPlayTool)
+			return;
 		g_pPlayTool->SetMute(bMute);
 	}
 
 	VideoStreamInfo^ RpCore::GetVideoStreamInfo()
 	{
 		VideoStreamInfo^ info = gcnew VideoStreamInfo();
+		if (!g_pCorePlayer)
+			return info;
 		PL_PlayerVideoStreamInfo* plInfo = g_pCorePlayer->GetVideoStreamInfo();
 		info->bitrate = plInfo->bitrate;
 		info->videoAspectRatio = plInfo->videoAspectRatio;
@@ -354,6 +413,8 @@ namespace RpCoreWrapper
 	AudioStreamInfo^ RpCore::GetAudioStreamInfo(int nStream)
 	{
 		AudioStreamInfo^ info = gcnew AudioStreamInfo();
+		if (!g_pCorePlayer)
+			return info;
 		PL_PlayerAudioStreamInfo* plInfo = g_pCorePlayer->GetAudioStreamInfo(nStream);
 		info->bitrate = plInfo->bitrate;
 		info->channels = plInfo->channels;
@@ -370,6 +431,8 @@ namespace RpCoreWrapper
 	SubtitleStreamInfo^ RpCore::GetSubtitleStreamInfo(int nStream)
 	{
 		SubtitleStreamInfo^ info = gcnew SubtitleStreamInfo();
+		if (!g_pCorePlayer)
+			return info;
 		PL_PlayerSubtitleStreamInfo* plInfo = g_pCorePlayer->GetSubtitleStreamInfo(nStream);
 		info->language = gcnew String(plInfo->language);
 		info->name = gcnew String(plInfo->name);
@@ -382,17 +445,23 @@ namespace RpCoreWrapper
 
 	void RpCore::SetSubtitleVisible(bool bVisible)
 	{
+		if (!g_pPlayTool)
+			return;
 		g_pPlayTool->SetSubtitleOn(bVisible);
 	}
 
 	bool RpCore::GetSubtitleVisible()
 	{
+		if (!g_pPlayTool)
+			return false;
 		return g_pPlayTool->GetSubtitleOn();
 	}
 
   MediaInfo^ RpCore::GetMediaInfo(String^ strFileUrl)
   {
     MediaInfo^ info = gcnew MediaInfo();
+		if (!g_pPlcore)
+			return info;
 
     CMediatoolConfig* pConfig = new CMediatoolConfig();
     char* temp = newChar(strFileUrl);
@@ -415,6 +484,8 @@ namespace RpCoreWrapper
 
 	void RpCore::CatchSnapshot(String^ strSaveUrl)
 	{
+		if (!g_pPlayTool)
+			return;
 		char* temp = newChar(strSaveUrl);
 		g_pPlayTool->CaptureRenderImage(temp,0);
 		delete[] temp;
@@ -422,36 +493,52 @@ namespace RpCoreWrapper
 
 	void  RpCore::SetSubtitleColor(int color)
 	{
+		if (!g_pPlayTool)
+			return;
 		g_pPlayTool->SetSubColor(color);
 	}
 	void  RpCore::SetSubtitleBorderColor(int color)
 	{
+		if (!g_pPlayTool)
+			return;
 		g_pPlayTool->SetSubtitleBorderColor(color);
 	}
 	void  RpCore::SetSubtitleSize(int size)
 	{
+		if (!g_pPlayTool)
+			return;
 		g_pPlayTool->SetSubtitleSize(size);
 	}
 	void  RpCore::SetSubtitlePos(int yPos)
 	{
+		if (!g_pPlayTool)
+			return;
 		float fYpos = yPos * 0.01;
 		g_pPlayTool->SetSubtitlePos(fYpos);
 	}
 	void  RpCore::SetSubtitleBold(bool b)
 	{
+		if (!g_pPlayTool)
+			return;
 		g_pPlayTool->SetSubtitleBold(b);
 	}
 	void  RpCore::SetSubtitleItalic(bool b)
 	{
+		if (!g_pPlayTool)
+			return;
 		g_pPlayTool->SetSubtitleItalic(b);
 	}
 	void  RpCore::SetOverAssOrig(bool b)
 	{
+		if (!g_pPlayTool)
+			return;
 		g_pPlayTool->SetWhetherOverAssOrigSettings(b);
 	}
 
   void RpCore::WriteLog(ELogType type,String^ strLog)
   {
+		if (!g_pPlcore)
+			return;
     char* temp = newChar(strLog);
     int nLogLevel = 0;
     switch (type)
