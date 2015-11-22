@@ -4,7 +4,20 @@
 #include "IPlcore.h"
 #include "IPlcore_playtool.h"
 #include "IPlcore_mediatool.h"
+#include <assert.h>
 
+
+class CPlcoreCallback : public IPlcoreCallback
+{
+public:
+	CPlcoreCallback() {};
+	virtual ~CPlcoreCallback() {};
+
+	void OnError(PL_ErrorCallbackType type, const char* strLastErrorDescription)
+	{
+		assert(0 && "CPlcoreCallback::OnError");
+	}
+};
 
 class CPlcoreConfig : public IPlcoreConfig
 {
@@ -37,25 +50,17 @@ public:
       {
         return m_strFontPath.c_str();
       }
-    case PL_PATH_TYPE_CORE_HOME:
+    case PL_PATH_TYPE_RUNTIMES:
       {
-        return m_strPlcoreHomePath.c_str();
+        return m_strPlcoreRuntimePath.c_str();
       }
     case PL_PATH_TYPE_LOG:
       {
-        return m_strLogPath.c_str();
+        return m_strTempPath.c_str();
       }
     case PL_PATH_TYPE_TEMPFOLDER:
       {
-        return m_strLogPath.c_str();
-      }
-    case PL_PATH_TYPE_MASTER_PROFILE_FOLDER:
-      {
-        return m_strPlcoreHomePath.c_str();
-      }
-    case PL_PATH_TYPE_HOME:
-      {
-        return m_strPlcoreHomePath.c_str();
+        return m_strTempPath.c_str();
       }
     default:
       return "";
@@ -74,8 +79,8 @@ public:
     }
   }
 
-  std::string m_strPlcoreHomePath;
-  std::string m_strLogPath;
+  std::string m_strPlcoreRuntimePath;
+  std::string m_strTempPath;
   std::string m_strFontPath;
   std::string m_strFontName;
 

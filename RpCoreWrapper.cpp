@@ -123,6 +123,7 @@ namespace RpCoreWrapper
   IPlayTool* g_pPlayTool = NULL;
   ICorePlayer* g_pCorePlayer = NULL;
   CPlcoreConfig* g_pPlcoreConfig = NULL;
+	CPlcoreCallback* g_pPlcoreCallback = NULL;
   CPlayToolConfig* g_pPlaytoolConfig = NULL;
   CPlaytoolCallback* g_pPlaytoolCallback = NULL;
   CPlayCallback* g_pPlayCallback = NULL; 
@@ -139,14 +140,16 @@ namespace RpCoreWrapper
     g_pPlcoreConfig->m_strFontPath = "C:/Windows/Fonts/";
 
     char* temp = newChar(strRuntimesPath);
-    g_pPlcoreConfig->m_strPlcoreHomePath = temp;
+    g_pPlcoreConfig->m_strPlcoreRuntimePath = temp;
     delete[] temp;
 
     temp = newChar(strTempPath);
-    g_pPlcoreConfig->m_strLogPath = temp;
+    g_pPlcoreConfig->m_strTempPath = temp;
 		delete[] temp;
 
-    bool bInit = g_pPlcore->Initialize(g_pPlcoreConfig);
+		g_pPlcoreCallback = new CPlcoreCallback();
+
+    bool bInit = g_pPlcore->Initialize(g_pPlcoreConfig,g_pPlcoreCallback);
     assert(bInit);
     if (!bInit) return false;
     return true;
@@ -158,6 +161,7 @@ namespace RpCoreWrapper
 			return;
     Libplayercore_ReleaseIPlcore(g_pPlcore);g_pPlcore = NULL;
     delete g_pPlcoreConfig;g_pPlcoreConfig = NULL; 
+		delete g_pPlcoreCallback, g_pPlcoreCallback = NULL;
   }
 
   bool RpCore::InitPlayer(int wndHandle, int wndWidth, int wndHeight)
@@ -190,10 +194,10 @@ namespace RpCoreWrapper
   {
 		if (!g_pPlayTool)
 			return true;
-    g_pPlayTool->ReleasePlayer(g_pCorePlayer);g_pPlcoreConfig = NULL;
+    g_pPlayTool->ReleasePlayer();g_pCorePlayer = NULL;
     delete g_pPlayCallback; g_pPlayCallback = NULL;
     bool b = g_pPlayTool->UnInit();
-    g_pPlcore->ReleasePlayTool(g_pPlayTool);g_pPlayTool = NULL;
+    g_pPlcore->ReleasePlayTool();g_pPlayTool = NULL;
     delete g_pPlaytoolCallback; g_pPlaytoolCallback = NULL;
     delete g_pPlaytoolConfig; g_pPlaytoolConfig = NULL;
     return b;
