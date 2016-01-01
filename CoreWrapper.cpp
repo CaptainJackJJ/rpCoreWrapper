@@ -211,6 +211,9 @@ namespace CoreWrapper
 
     g_pCorePlayer = g_pPlayTool->GetPlayer(g_pPlayCallback);
 
+    g_pPlayTool->SetQuickSwitchAudio(true);
+    g_pPlayTool->SetQuickSwitchSubtitle(true);
+
     return true;
   }
 
