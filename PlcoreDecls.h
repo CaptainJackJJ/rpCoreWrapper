@@ -10,13 +10,13 @@
 class CPlcoreCallback : public IPlcoreCallback
 {
 public:
-	CPlcoreCallback() {};
-	virtual ~CPlcoreCallback() {};
+  CPlcoreCallback() {};
+  virtual ~CPlcoreCallback() {};
 
-	void OnError(PL_ErrorCallbackType type, const char* strLastErrorDescription)
-	{
-		assert(0 && "CPlcoreCallback::OnError");
-	}
+  void OnError(PL_ErrorCallbackType type, const char* strLastErrorDescription)
+  {
+    assert(0 && "CPlcoreCallback::OnError");
+  }
 };
 
 class CPlcoreConfig : public IPlcoreConfig
@@ -32,9 +32,9 @@ public:
   {
   };
 
-  virtual const char* GetSpecifyName(){m_strSpecifyName = "RpCore";return m_strSpecifyName.c_str();};
-  virtual const char* GetClientAppName(){m_strClientAppName = "Rp";return m_strClientAppName.c_str();};
-  virtual const char* GetClientPackageName(){m_strClientPackageName = "Rp";return m_strClientPackageName.c_str();};
+  virtual const char* GetSpecifyName(){m_strSpecifyName = "Core";return m_strSpecifyName.c_str();};
+  virtual const char* GetClientAppName(){m_strClientAppName = "x";return m_strClientAppName.c_str();};
+  virtual const char* GetClientPackageName(){m_strClientPackageName = "x";return m_strClientPackageName.c_str();};
   virtual const char* GetClientVersion(){m_strClientVersion = "1.0.0";return m_strClientVersion.c_str();};
 
   virtual int GetAccountType(){return m_nAccountType;};
@@ -56,7 +56,7 @@ public:
       }
     case PL_PATH_TYPE_LOG:
       {
-        return m_strTempPath.c_str();
+        return m_strLogPath.c_str();
       }
     case PL_PATH_TYPE_TEMPFOLDER:
       {
@@ -81,6 +81,7 @@ public:
 
   std::string m_strPlcoreRuntimePath;
   std::string m_strTempPath;
+  std::string m_strLogPath;
   std::string m_strFontPath;
   std::string m_strFontName;
 
