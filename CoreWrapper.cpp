@@ -404,14 +404,14 @@ namespace CoreWrapper
 
   bool Core::IsPlaying()
   {
-    if (!g_pPlayTool)
+    if (!g_pPlayTool || !g_pCorePlayer)
       return false;
     return g_pCorePlayer->IsPlaying();
   }
 
   bool Core::IsPaused()
   {
-    if (!g_pPlayTool)
+    if (!g_pPlayTool || !g_pCorePlayer)
       return false;
     return g_pCorePlayer->IsPaused();
   }
