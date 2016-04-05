@@ -488,7 +488,7 @@ namespace CoreWrapper
     return g_pPlayTool->GetSubtitleOn();
   }
 
-  MediaInfo^ Core::GetMediaInfo(String^ strFileUrl)
+  MediaInfo^ Core::GetMediaInfo(String^ strFileUrl,String^ strThumbUrl,int nThumbPercent,int nThumbWidth)
   {
     MediaInfo^ info = gcnew MediaInfo();
     if (!g_pPlcore)
@@ -496,15 +496,29 @@ namespace CoreWrapper
 
     CMediatoolConfig* pConfig = new CMediatoolConfig();
     char* temp = newChar(strFileUrl);
-    pConfig->m_strSourcePath = temp;
+    pConfig->m_strSourcePath = temp;    
     delete[] temp;
+    temp = newChar(strThumbUrl);
+    pConfig->m_strThumbPath = temp;
+    delete[] temp;
+    pConfig->m_nThumbPercent = nThumbPercent;
+    pConfig->m_nThumbWidth = nThumbWidth;
+    pConfig->m_nThumbHeight = nThumbWidth / 1.77;
 
     IMediatool* pMediatool = g_pPlcore->CreateMediatool(pConfig);
     if(pMediatool->Parser())
     {
       IMediaPlaylist* pPlaylist = pMediatool->GetMediaPlaylistByPlaylist();
       if(pPlaylist)
+      {
         info->nDuration = (double)(pPlaylist->GetDurationMs() / 1000);
+        if (strThumbUrl != "")
+        {
+          IMediaInfo* pMInfo = pPlaylist->GetMediaInfo(STREAM_TYPE_VIDEO,0);
+          pConfig->m_nThumbHeight = nThumbWidth * pMInfo->GetHeignt() / pMInfo->GetWidth();// Remain orig aspect
+          pMediatool->GetThumbnail();
+        }        
+      }      
     }
 
     g_pPlcore->ReleaseMediatool(pMediatool);

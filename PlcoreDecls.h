@@ -121,7 +121,10 @@ public:
 class CMediatoolConfig: public IMediatoolConfig
 {
 public:
-  CMediatoolConfig() {}
+  CMediatoolConfig() 
+  {
+    m_strThumbPath = "";m_nThumbPercent = 10;m_nThumbWidth = 208;m_nThumbHeight = 117;
+  }
   virtual ~CMediatoolConfig() {}
 
   const char* GetSourcePath() {return m_strSourcePath.c_str();}
@@ -130,17 +133,20 @@ public:
 
   bool IsCancel() {return false;}
 
-  const char* GetThumbnailPath(int playlist = -1) {return "";}
+  const char* GetThumbnailPath(int playlist = -1) {return m_strThumbPath.c_str();}
 
   const char* GetMovieImagePath() {return "";}
 
   const char* GetMultiThumbnailPath(int nSeekTo, int& nIntervalTime, int playlist = -1) {return "";}
 
-  int GetThumbnailPercentTime() {return 20;}
+  int GetThumbnailPercentTime() {return m_nThumbPercent;}
 
-  void GetThumbnailSize(int& iWidth, int& iHeight) {iWidth = 150;iHeight = 100;}
+  void GetThumbnailSize(int& iWidth, int& iHeight) {iWidth = m_nThumbWidth;iHeight = m_nThumbHeight;}
 
-  int GetMinTimeLengthOfPlaylist() {return 10 * 60 * 1000;}
+  int GetMinTimeLengthOfPlaylist() {return 60 * 1000;}
 
   std::string m_strSourcePath;
+  std::string m_strThumbPath;
+  int m_nThumbPercent;
+  int m_nThumbWidth,m_nThumbHeight;
 };

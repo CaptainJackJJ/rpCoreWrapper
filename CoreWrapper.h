@@ -112,7 +112,7 @@ namespace CoreWrapper
     static SubtitleStreamInfo^ GetSubtitleStreamInfo(int nStream);
     static void SetSubtitleVisible(bool bVisible);
     static bool GetSubtitleVisible();
-    static MediaInfo^ GetMediaInfo(String^ strFileUrl);
+    static MediaInfo^ GetMediaInfo(String^ strFileUrl,String^ strThumbUrl,int nThumbPercent,int nThumbWidth);
     static bool CatchSnapshot(String^ strSaveUrl);
     static void SetSubtitleColor(int color);
     static void SetSubtitleBorderColor(int color);
