@@ -73,7 +73,7 @@
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>Plcore.lib</AdditionalDependencies>
+      <AdditionalDependencies>Core.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>D:\develop\trunk\me\project\plcore2\project\VS2010Express\Plcore\Release_for_vidon_play_dll;F:\develop\trunk\goland\projects\plcore2\project\VS2010Express\Plcore\Release_for_vidon_play_dll</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>
