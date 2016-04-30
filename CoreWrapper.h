@@ -122,5 +122,6 @@ namespace CoreWrapper
     static void SetSubtitleItalic(bool b);
     static void SetOverAssOrig(bool b);
     static void WriteLog(ELogType type,String^ strLog);
+    static void EnableHW(bool hw);
   };
 }

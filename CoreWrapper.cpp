@@ -581,6 +581,14 @@ namespace CoreWrapper
     g_pPlayTool->SetWhetherOverAssOrigSettings(b);
   }
 
+  void  Core::EnableHW(bool hw)
+  {
+    if (!g_pPlayTool)
+      return;
+    g_pPlayTool->SetCSettings("videoplayer.useintelgpu", hw);
+    g_pPlayTool->SetCSettings("videoplayer.usedxva2", hw);
+  }
+
   void Core::WriteLog(ELogType type,String^ strLog)
   {
     if (!g_pPlcore)
